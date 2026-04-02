@@ -142,6 +142,12 @@ env/
 venv/
 yulia_diploma_venv/
 .yulia_diploma_venv
+data/
+.data
+models/
+.models
+reports/
+.repots
 ENV/
 env.bak/
 venv.bak/
