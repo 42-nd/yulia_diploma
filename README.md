@@ -10,7 +10,7 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 
 Ставим пакеты(После поднятия venv):
-pip install requirements.txt
+pip install -r requirements.txt
 
 Сначала данные и модель: 
 python3 ./main.py
