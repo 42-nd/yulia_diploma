@@ -1,0 +1,92 @@
+[
+  {
+    "russian_name": "Статус",
+    "english_name": "status",
+    "description": "Статус урока (проведен, не проведен, в процессе)",
+    "note": ""
+  },
+  {
+    "russian_name": "Предмет",
+    "english_name": "subject",
+    "description": "Название предмета",
+    "note": "Только 3 предмета: английский, русский литература"
+  },
+  {
+    "russian_name": "Преподаватель",
+    "english_name": "teacher",
+    "description": "Преподаватель, ведущий урок",
+    "note": "Только один преподаватель - Юлиана Ш.Д."
+  },
+  {
+    "russian_name": "Тема",
+    "english_name": "topic",
+    "description": "Тема урока",
+    "note": "Должно соотвествовать предмету"
+  },
+  {
+    "russian_name": "Описание",
+    "english_name": "description",
+    "description": "Подробное описание урока (может быть пустым)",
+    "note": "заполняется вручную преподавателем"
+  },
+  {
+    "russian_name": "Присутствие",
+    "english_name": "attendance",
+    "description": "Тэг присутствия: пришел, прогул, уважительная причина",
+    "note": "один из вариантов: 'пришел', 'прогул', 'уважительная причина' речь о ученике"
+  },
+  {
+    "russian_name": "Ученик",
+    "english_name": "student_id",
+    "description": "Идентификатор ученика (связь с student_data)",
+    "note": ""
+  },
+  {
+    "russian_name": "Статус ученика",
+    "english_name": "student_status",
+    "description": "Статус ученика на момент урока (учится/отчислен)",
+    "note": "обновляется при отчислении ученика из школы"
+  },
+  {
+    "russian_name": "Продолж. ас/ч",
+    "english_name": "duration_astronomical_hours",
+    "description": "Длительность урока в астрономических часах",
+    "note": ""
+  },
+  {
+    "russian_name": "Продолж. ак/ч",
+    "english_name": "duration_academic_hours",
+    "description": "Длительность урока в академических часах",
+    "note": ""
+  },
+  {
+    "russian_name": "Ставка",
+    "english_name": "rate",
+    "description": "Ставка преподавателя в рублях за час",
+    "note": ""
+  },
+  {
+    "russian_name": "Доходность",
+    "english_name": "revenue",
+    "description": "Доход за урок (ставка * астрономические часы)",
+    "note": "вычисляемое поле = rate * duration_astronomical_hours"
+  },
+  {
+    "russian_name": "Задано дз",
+    "english_name": "homework_assigned",
+    "description": "Было ли задано домашнее задание",
+    "note": "yes/no"
+  },
+  {
+    "russian_name": "Оценка за урок",
+    "english_name": "lesson_grade",
+    "description": "Оценка знаний ученика на уроке",
+    "note": "оценка по 5-ти бальной шкале"
+  },
+  {
+    "russian_name": "Оценка за поведение",
+    "english_name": "behavior_grade",
+    "description": "Оценка прилежности и поведения на уроке",
+    "note": "оценка по 5-ти бальной шкале"
+  }
+]
