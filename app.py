@@ -8,7 +8,6 @@ import json
 import warnings
 import sys
 from datetime import datetime
-import matplotlib.pyplot as plt
 # Добавляем путь к src для импорта модулей
 sys.path.append(os.path.dirname(__file__))
 from src.feature_engineering import FeatureEngineer
@@ -143,6 +142,20 @@ def clean_data(students_df, lessons_df):
     return students_df, lessons_df
 
 # -------------------------------------------------------------------
+# Вспомогательная функция для построения гистограмм с подписями осей
+# -------------------------------------------------------------------
+def plot_histogram(data, xlabel, ylabel="Количество учеников", title=None, rot=45):
+    """Рисует столбчатую диаграмму с подписанными осями и выводит через st.pyplot"""
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.bar(data.index.astype(str), data.values)  # индексы в строки для читаемости
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    if title:
+        ax.set_title(title)
+    plt.xticks(rotation=rot, ha='right')
+    st.pyplot(fig)
+
+# -------------------------------------------------------------------
 # 3. Основная логика приложения
 # -------------------------------------------------------------------
 if 'data' not in st.session_state:
@@ -192,7 +205,7 @@ if st.session_state.data is None:
             # Генерация признаков
             with st.spinner("Генерация признаков..."):
                 engineer = FeatureEngineer()
-                features_df = engineer.create_features(export_df, schedule_df,homeworks_df)
+                features_df = engineer.create_features(export_df, schedule_df, homeworks_df)
 
             # Применение модели для расчёта риска, если модель доступна
             if model is not None and feature_names:
@@ -247,12 +260,12 @@ with st.sidebar:
     st.write("Средние показатели:")
     avg_cols = {
         'attendance_rate': 'Посещаемость, %',
-        'avg_score': 'Средний балл',   # ADD
+        'avg_score': 'Средний балл',
     }
     for col, label in avg_cols.items():
         if col in filtered_data.columns:
             val = filtered_data[col].mean()
-            if 'ratio' in col:
+            if 'rate' in col:
                 st.write(f"- {label}: {val*100:.1f}%")
             else:
                 st.write(f"- {label}: {val:,.0f}")
@@ -272,10 +285,11 @@ with col1:
 
 with col2:
     st.subheader("Распределение риска")
-    risk_dist = filtered_data['risk'].value_counts()
-    st.bar_chart(risk_dist)
+    risk_dist = filtered_data['risk'].value_counts().sort_index()
+    # Переименовываем индексы для наглядности
+    risk_dist.index = risk_dist.index.map({0: "Низкий риск (0)", 1: "Высокий риск (1)"})
+    plot_histogram(risk_dist, xlabel="Категория риска", ylabel="Количество учеников", title="Распределение риска", rot=0)
     st.caption("0 – низкий риск, 1 – высокий риск")
-
 
 st.subheader("Распределение ключевых показателей")
 plot_config = {
@@ -285,23 +299,16 @@ plot_config = {
 for col, cfg in plot_config.items():
     if col in filtered_data.columns:
         data_plot = filtered_data[col] * cfg['mult']
-
         # Строим гистограмму с 20 бинами
         counts = data_plot.value_counts(bins=20).sort_index()
-
         # Форматируем метки оси X
-        if '%' in cfg['label']:
-            # Для процентных показателей добавляем знак %
-            labels = [f"{interval.right:.1f}%" for interval in counts.index]
-        else:
-            # Для revenue округляем до целых
-            labels = [f"{interval.right:.0f}" for interval in counts.index]
-
+        labels = [f"{interval.right:.1f}%" for interval in counts.index]
         counts.index = labels
-        st.bar_chart(counts)
+        plot_histogram(counts, xlabel=cfg['label'], ylabel="Количество учеников", title=f"Распределение {cfg['label']}", rot=45)
         st.caption(f"Распределение {cfg['label']}")
     else:
         st.info(f"Показатель {col} отсутствует в данных")
+
 if 'avg_score' in filtered_data.columns:
     st.subheader("Распределение среднего балла")
     scores = filtered_data['avg_score']
@@ -310,19 +317,18 @@ if 'avg_score' in filtered_data.columns:
     labels = [f"{b:.1f}–{b+0.5:.1f}" for b in bins[:-1]]
     binned = pd.cut(scores, bins=bins, labels=labels, include_lowest=True)
     counts = binned.value_counts().sort_index()
-    st.bar_chart(counts)
+    plot_histogram(counts, xlabel="Средний балл (интервалы)", ylabel="Количество учеников", title="Распределение среднего балла", rot=45)
     st.caption("Распределение среднего балла (0–5)")
 
 # Гистограмма тренда оценок
 if 'score_trend' in filtered_data.columns:
     st.subheader("Распределение тренда оценок")
     trend_vals = filtered_data['score_trend']
-    # value_counts(bins=20) создаст интервалы
     counts = trend_vals.value_counts(bins=20).sort_index()
     # Форматируем метки для наглядности
     labels = [f"{interval.left:.3f}–{interval.right:.3f}" for interval in counts.index]
     counts.index = labels
-    st.bar_chart(counts)
+    plot_histogram(counts, xlabel="Тренд оценок (изменение в день)", ylabel="Количество учеников", title="Распределение тренда оценок", rot=45)
     st.caption("Распределение тренда оценок (изменение в день)")
 
 # -------------------------------------------------------------------
@@ -336,10 +342,9 @@ if model is None:
     st.stop()
 
 # Пороговые значения для цветовой индикации
-# (порядок: хорошее / внимание / плохое)
 THRESHOLDS = { 
-    'attendance_rate': {'good': 0.75, 'warning': 0.5},       # >0.75 – info, 0.5–0.75 – warning, <0.5 – error
-    'attendance_trend': {'good': 0.0001, 'warning': -0.0009},        # >0 – info, <=0 – error
+    'attendance_rate': {'good': 0.75, 'warning': 0.5},
+    'attendance_trend': {'good': 0.0001, 'warning': -0.0009},
 }
 
 # Определяем min/max client_id
@@ -363,7 +368,7 @@ student_data = filtered_data[filtered_data['client_id'] == student_id]
 if len(student_data) > 0:
     student = student_data.iloc[0]
 
-    col1, col2  = st.columns(2)
+    col1, col2 = st.columns(2)
 
     with col1:
         st.info(f"**ФИО:** {student.get('full_name', 'N/A')}")
@@ -426,7 +431,7 @@ if len(student_data) > 0:
             else:
                 st.info(f"**Тренд оценок:** {trend_score:.3f} (стабильно/растёт)")
 
-    # Кнопка прогноза и рекомендации (без изменений)
+    # Кнопка прогноза и рекомендации
     if st.button("Сделать прогноз"):
         prob = student.get('risk_prob', 0)
         risk = student.get('risk', 0)
@@ -441,17 +446,16 @@ if len(student_data) > 0:
             recommendations.append("Низкая посещаемость – необходимо усилить контроль и мотивацию.")
         elif att_rate < 0.75:
             recommendations.append("Посещаемость ниже нормы – рекомендуется связаться с родителями.")
+        if 'avg_score' in student:
+            if avg_score < 2.5:
+                recommendations.append("Средний балл критически низкий – необходима срочная работа с учеником.")
+            elif avg_score < 3.5:
+                recommendations.append("Средний балл ниже нормы – дополнительные занятия.")
+        if 'score_trend' in student:
+            if trend_score < -0.01:
+                recommendations.append("Заметное падение успеваемости – выяснить причины.")
         if not recommendations:
             recommendations.append("Показатели в норме, продолжайте в том же духе.")
-
-        if avg_score < 2.5:
-            recommendations.append("Средний балл критически низкий – необходима срочная работа с учеником.")
-        elif avg_score < 3.5:
-            recommendations.append("Средний балл ниже нормы – дополнительные занятия.")
-        if trend_score < -0.01:
-            recommendations.append("Заметное падение успеваемости – выяснить причины.")
-        if not recommendations:
-            recommendations.append("Успеваемость в норме, продолжайте в том же духе.")
         for rec in recommendations:
             st.write(rec)
 else:
