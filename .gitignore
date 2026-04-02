@@ -140,6 +140,8 @@ celerybeat.pid
 .venv
 env/
 venv/
+yulia_diploma_venv/
+.yulia_diploma_venv
 ENV/
 env.bak/
 venv.bak/

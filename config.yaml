@@ -1,0 +1,48 @@
+data:
+  num_students: 1000
+  lessons_per_student_mean: 5.0
+  lessons_per_student_sd: 1.5
+  start_days_back: 180
+  seed: 42
+
+paths:
+  data_dir: "data"
+  models_dir: "models"
+  reports_dir: "reports"
+  students_file: "students.csv"
+  lessons_file: "lessons.csv"
+  homeworks_file: "homeworks.csv"
+  communications_file: "communications.csv"
+  processed_file: "processed_students.csv"
+
+models:
+  test_size: 0.2
+  random_state: 42
+  n_features: 10
+  cv_folds: 3
+
+features:
+  target: "academic_risk"
+  exclude_columns:
+    - client_id
+    - full_name
+    - responsible_manager
+    - source
+    - created_date
+    - first_payment_date
+    - last_payment_date
+    - first_attendance_date
+    - last_attendance_date
+    - student_status
+    - branch
+    - parent_info
+    - vk
+    - subscribed_to_newsletter
+    - no_auto_notifications
+    - age_group
+
+visualization:
+  figsize_width: 12
+  figsize_height: 6
+  save_figures: true
+  show_figures: false
