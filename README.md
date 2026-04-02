@@ -3,6 +3,13 @@ Yulia_diploma
 
 Как запустить:
 
+В самом начале:
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+
+Ставим пакеты(После поднятия venv):
+pip install requirements.txt
+
 Сначала данные и модель: 
 python3 ./main.py
 
