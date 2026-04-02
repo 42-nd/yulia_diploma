@@ -4,7 +4,9 @@ Yulia_diploma
 Как запустить:
 
 В самом начале:
+
 python -m venv venv
+
 .\venv\Scripts\Activate.ps1
 
 Ставим пакеты(После поднятия venv):
