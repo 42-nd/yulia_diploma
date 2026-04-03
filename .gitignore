@@ -158,7 +158,8 @@ generated_data/
 # Spyder project settings
 .spyderproject
 .spyproject
-
+.catboost_info
+catboost_info/
 # Rope project settings
 .ropeproject
 

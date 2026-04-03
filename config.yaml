@@ -1,0 +1,51 @@
+paths:
+  data_dir: "./data_generator/generated_data"
+  models_dir: "./models"
+  reports_dir: "./reports"
+  data_export_dir: "./data_export"
+  mappings_dir: "./data_generator/templates"
+
+features:
+  target: "academic_risk"
+  exclude_columns:
+    - "student_id"
+    - "phone"
+    - "email"
+    - "manager_id"
+    - "source"
+    - "comments"
+    - "contract_id"
+    - "certificate_id"
+    - "other_doc_id"
+    - "birth_date"
+    - "parent_info"
+    - "subscribed_to_newsletter"
+    - "no_auto_notifications"
+    - "consent_newsletter"
+    - "consent_user_agreement"
+    - "consent_personal_data"
+    - "consent_privacy_policy"
+    - "age_confirmation"
+    - "consent_minor_data"
+    - "full_name"
+    - "created_date"
+    - "first_attendance_date"
+    - "last_attendance_date"
+    - "student_status"
+    - "branch"
+    - "vk"
+    - "age_group"
+
+models:
+  test_size: 0.2
+  random_state: 42
+  catboost_iterations: 200
+  catboost_depth: 6
+  catboost_learning_rate: 0.1
+
+visualization:
+  save_figures: true
+  show_figures: false
+
+
+random_seed: 42
