@@ -1,0 +1,31 @@
+num_students: 30
+num_lessons: 300
+start_date: '2024-09-01'
+end_date: '2025-05-31'
+subjects:
+  - 'Английский'
+  - 'Русский язык'
+  - 'Литература'
+teacher: 'Юлиана Ш.Д.'
+attendance_weights:
+  пришел: 0.70
+  прогул: 0.20
+  уважительная причина: 0.10
+lesson_status_weights:
+  проведен: 0.85
+  не проведен: 0.10
+  в процессе: 0.05
+homework_assigned_prob: 0.60
+rate_per_hour: 2500
+duration_astronomical_hours_min: 0.5
+duration_astronomical_hours_max: 1.5
+expulsion_prob: 0.15
+expulsion_min_days_after_start: 30
+expulsion_max_days_after_start: 200
+random_seed: 42
+sources:
+  - интернет
+  - друзья
+  - реклама
+  - соцсети
+  - другое

@@ -1,0 +1,188 @@
+[
+  {
+    "russian_name": "ФИО",
+    "english_name": "full_name",
+    "description": "Полное имя ученика",
+    "note": ""
+  },
+  {
+    "russian_name": "Телефон",
+    "english_name": "phone",
+    "description": "Контактный телефон ученика",
+    "note": ""
+  },
+  {
+    "russian_name": "Email",
+    "english_name": "email",
+    "description": "Адрес электронной почты ученика",
+    "note": ""
+  },
+  {
+    "russian_name": "№ клиента",
+    "english_name": "student_id",
+    "description": "Уникальный идентификатор ученика",
+    "note": "почти случайное число"
+  },
+  {
+    "russian_name": "Отв. менеджер",
+    "english_name": "manager_id",
+    "description": "Идентификатор ответственного менеджера",
+    "note": "полностью рандомный id"
+  },
+  {
+    "russian_name": "Источник клиента",
+    "english_name": "source",
+    "description": "Откуда пришел ученик (интернет, друзья и т.п.)",
+    "note": "почти случайная история"
+  },
+  {
+    "russian_name": "Посещений",
+    "english_name": "visits_count",
+    "description": "Количество посещений занятий",
+    "note": "сколько ученик посетил уроков"
+  },
+  {
+    "russian_name": "Баланс",
+    "english_name": "balance",
+    "description": "Текущий баланс лицевого счета",
+    "note": ""
+  },
+  {
+    "russian_name": "Приход (всего платежей)",
+    "english_name": "total_payments",
+    "description": "Общая сумма всех платежей",
+    "note": ""
+  },
+  {
+    "russian_name": "Задолженность всего, сумма",
+    "english_name": "debt",
+    "description": "Сумма задолженности",
+    "note": ""
+  },
+  {
+    "russian_name": "Дата перв платежа",
+    "english_name": "first_payment_date",
+    "description": "Дата первого платежа",
+    "note": ""
+  },
+  {
+    "russian_name": "Дата посл платежа",
+    "english_name": "last_payment_date",
+    "description": "Дата последнего платежа",
+    "note": ""
+  },
+  {
+    "russian_name": "Дата перв посещ кл",
+    "english_name": "first_visit_date",
+    "description": "Дата первого посещения занятия",
+    "note": ""
+  },
+  {
+    "russian_name": "Дата посл посещ кл",
+    "english_name": "last_visit_date",
+    "description": "Дата последнего посещения занятия",
+    "note": ""
+  },
+  {
+    "russian_name": "Срок посещ, дн",
+    "english_name": "visit_duration_days",
+    "description": "Период между первым и последним посещением в днях",
+    "note": ""
+  },
+  {
+    "russian_name": "Комментарии к клиенту",
+    "english_name": "comments",
+    "description": "Произвольные текстовые комментарии",
+    "note": "могут быть пропуски"
+  },
+  {
+    "russian_name": "Статус ученика",
+    "english_name": "student_status",
+    "description": "Текущий статус (активен, заморожен, отчислен и т.п.)",
+    "note": ""
+  },
+  {
+    "russian_name": "Договоры",
+    "english_name": "contract_id",
+    "description": "Идентификатор договора",
+    "note": "рандомный id"
+  },
+  {
+    "russian_name": "Справки",
+    "english_name": "certificate_id",
+    "description": "Идентификатор справки",
+    "note": "рандомный id"
+  },
+  {
+    "russian_name": "Иные документы",
+    "english_name": "other_doc_id",
+    "description": "Идентификатор прочих документов",
+    "note": "рандомный id"
+  },
+  {
+    "russian_name": "Возраст",
+    "english_name": "age",
+    "description": "Возраст ученика (полных лет)",
+    "note": "почти случайная число"
+  },
+  {
+    "russian_name": "Дата рождения",
+    "english_name": "birth_date",
+    "description": "Дата рождения ученика",
+    "note": "почти случайная число, явно не должно быть в будущем"
+  },
+  {
+    "russian_name": "Родитель (имя, телефон)",
+    "english_name": "parent_info",
+    "description": "Имя и телефон родителя или законного представителя",
+    "note": ""
+  },
+  {
+    "russian_name": "Подписан на рассылку",
+    "english_name": "subscribed_to_newsletter",
+    "description": "Согласие на получение информационных рассылок",
+    "note": "да/нет, случайная"
+  },
+  {
+    "russian_name": "Не присылать автоуведомления",
+    "english_name": "no_auto_notifications",
+    "description": "Запрет на автоматические уведомления",
+    "note": "да/нет, случайная"
+  },
+  {
+    "russian_name": "Согласие на получение рассылок",
+    "english_name": "consent_newsletter",
+    "description": "Юридическое согласие на рассылки",
+    "note": "да/нет (всегда 'да' для заполненных анкет)"
+  },
+  {
+    "russian_name": "Согласие с пользовательским соглашением",
+    "english_name": "consent_user_agreement",
+    "description": "Согласие с условиями пользовательского соглашения",
+    "note": "да/нет (всегда 'да' для заполненных анкет)"
+  },
+  {
+    "russian_name": "Согласие на обработку персональных данных",
+    "english_name": "consent_personal_data",
+    "description": "Согласие на обработку персональных данных",
+    "note": "да/нет (всегда 'да' для заполненных анкет)"
+  },
+  {
+    "russian_name": "Согласие с политикой конфиденциальности",
+    "english_name": "consent_privacy_policy",
+    "description": "Согласие с политикой конфиденциальности",
+    "note": "да/нет (всегда 'да' для заполненных анкет)"
+  },
+  {
+    "russian_name": "Подтверждение возраста",
+    "english_name": "age_confirmation",
+    "description": "Подтверждение, что возраст указан верно",
+    "note": "да/нет (всегда 'да' для заполненных анкет)"
+  },
+  {
+    "russian_name": "Согласие на обработку персональных данных несовершеннолетнего",
+    "english_name": "consent_minor_data",
+    "description": "Согласие родителя на обработку данных несовершеннолетнего",
+    "note": "да/нет (всегда 'да' для заполненных анкет)"
+  }
+]

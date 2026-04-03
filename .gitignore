@@ -151,7 +151,10 @@ reports/
 ENV/
 env.bak/
 venv.bak/
-
+data_export/
+.data_export
+generated_data/
+.generated_data
 # Spyder project settings
 .spyderproject
 .spyproject

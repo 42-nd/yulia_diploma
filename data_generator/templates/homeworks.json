@@ -1,0 +1,38 @@
+[
+  {
+    "russian_name": "ДЗ",
+    "english_name": "homework_id",
+    "description": "Уникальный идентификатор домашнего задания",
+    "note": "Почти случайный id"
+  },
+  {
+    "russian_name": "Ученик",
+    "english_name": "student_id",
+    "description": "Идентификатор ученика, выполнившего задание",
+    "note": "Почти случайный id"
+  },
+  {
+    "russian_name": "Дата выдачи",
+    "english_name": "assign_date",
+    "description": "Дата выдачи домашнего задания",
+    "note": "Должно совпадать с датой урока"
+  },
+  {
+    "russian_name": "Дата сдачи",
+    "english_name": "submit_date",
+    "description": "Дата сдачи домашнего задания",
+    "note": "Не раньше даты выдачи"
+  },
+  {
+    "russian_name": "Оценка",
+    "english_name": "score",
+    "description": "Оценка за домашнее задание",
+    "note": "число по 5-ти бальной шкале"
+  },
+  {
+    "russian_name": "Тема",
+    "english_name": "topic",
+    "description": "Тема, к которой относится домашнее задание",
+    "note": "свободный текст"
+  }
+]

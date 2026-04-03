@@ -1,4 +1,3 @@
-from src.data_generator import DataGenerator
 from src.preprocessing import DataPreprocessor
 from src.feature_engineering import FeatureEngineer
 from src.models import ModelTrainer
@@ -12,22 +11,13 @@ def main():
     print("ДИПЛОМНЫЙ ПРОЕКТ: ПРОГНОЗИРОВАНИЕ РИСКА НЕУСПЕВАЕМОСТИ УЧЕНИКА")
     print("="*80)
 
-    print("\nШАГ 1: Генерация данных...")
-    generator = DataGenerator()
-    students, lessons, homeworks, _ = generator.generate()   # теперь homeworks не игнорируется
-    generator.save_data(students, lessons, homeworks)        # сохраняем и homeworks
-    generator.save_to_excel(students, lessons, homeworks)    # опционально
-    # Добавляем сохранение в CRM-формате
-    generator.save_crm_export(students, "data/export.csv")
-    generator.save_crm_schedule(lessons, "data/schedule.csv")
-    homeworks.to_csv("data/homeworks.csv", index=False, encoding='utf-8-sig')
-    print("\nШАГ 2: Предобработка данных...")
+    print("\nШАГ 1: Предобработка данных...")
     preprocessor = DataPreprocessor()
     students, lessons, homeworks, _ = preprocessor.load_data()  # load_data теперь должна загружать и homeworks
     preprocessor.check_missing_values(students, lessons, pd.DataFrame(), pd.DataFrame())  # вместо None
     preprocessor.get_statistics(students, lessons, pd.DataFrame())                       # вместо None
 
-    print("\nШАГ 3: Генерация признаков...")
+    print("\nШАГ 2: Генерация признаков...")
     engineer = FeatureEngineer()
     merged = engineer.create_features(students, lessons, homeworks_df=homeworks)  # только students и lessons
     selected, reduced = engineer.select_features(merged, n_features=10)
@@ -39,14 +29,14 @@ def main():
     visualizer = Visualizer()
     visualizer.plot_correlation_heatmap(reduced, "correlation_heatmap")
 
-    print("\nШАГ 4: Обучение модели (Логистическая регрессия)...")
+    print("\nШАГ 3: Обучение модели (Логистическая регрессия)...")
     trainer = ModelTrainer()
     X_train, X_test, y_train, y_test, feature_cols = trainer.prepare_data(reduced)
 
     trainer.train_logistic_regression(X_train, y_train)
     trainer.evaluate_model(trainer.model, X_test, y_test)
 
-    print("\nШАГ 5: Важность признаков...")
+    print("\nШАГ 4: Важность признаков...")
     fi_df = trainer.get_feature_importance()
     if not fi_df.empty:
         visualizer.plot_feature_importance(fi_df, "logreg")

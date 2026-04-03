@@ -1,0 +1,62 @@
+[
+  {
+    "first_name_ru": "Иван",
+    "first_name_en": "Ivan",
+    "last_name_ru": "Иванов",
+    "last_name_en": "Ivanov"
+  },
+  {
+    "first_name_ru": "Мария",
+    "first_name_en": "Maria",
+    "last_name_ru": "Петрова",
+    "last_name_en": "Petrova"
+  },
+  {
+    "first_name_ru": "Алексей",
+    "first_name_en": "Alexey",
+    "last_name_ru": "Сидоров",
+    "last_name_en": "Sidorov"
+  },
+  {
+    "first_name_ru": "Елена",
+    "first_name_en": "Elena",
+    "last_name_ru": "Кузнецова",
+    "last_name_en": "Kuznetsova"
+  },
+  {
+    "first_name_ru": "Дмитрий",
+    "first_name_en": "Dmitry",
+    "last_name_ru": "Смирнов",
+    "last_name_en": "Smirnov"
+  },
+  {
+    "first_name_ru": "Анна",
+    "first_name_en": "Anna",
+    "last_name_ru": "Васильева",
+    "last_name_en": "Vasilieva"
+  },
+  {
+    "first_name_ru": "Сергей",
+    "first_name_en": "Sergey",
+    "last_name_ru": "Попов",
+    "last_name_en": "Popov"
+  },
+  {
+    "first_name_ru": "Ольга",
+    "first_name_en": "Olga",
+    "last_name_ru": "Соколова",
+    "last_name_en": "Sokolova"
+  },
+  {
+    "first_name_ru": "Николай",
+    "first_name_en": "Nikolay",
+    "last_name_ru": "Михайлов",
+    "last_name_en": "Mikhailov"
+  },
+  {
+    "first_name_ru": "Татьяна",
+    "first_name_en": "Tatiana",
+    "last_name_ru": "Фёдорова",
+    "last_name_en": "Fedorova"
+  }
+]
