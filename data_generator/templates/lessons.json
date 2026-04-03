@@ -12,6 +12,12 @@
     "note": "Только 3 предмета: английский, русский литература"
   },
   {
+    "russian_name": "Дата",
+    "english_name": "date",
+    "description": "Дата проведения урока",
+    "note": ""
+  },
+  {
     "russian_name": "Преподаватель",
     "english_name": "teacher",
     "description": "Преподаватель, ведущий урок",

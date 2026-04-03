@@ -30,10 +30,10 @@ class DataGenerator:
         self.parent_names_corpus = self._load_json('parent_names.json')
         self.email_domains = self._load_json('email.json')
         
-        # Load column orders from CSV templates
-        self.student_columns = self._load_template_columns('student_data_template.csv')
-        self.lessons_columns = self._load_template_columns('lessons_template.csv')
-        self.homeworks_columns = self._load_template_columns('homeworks_template.csv')
+        # Load column orders from JSON templates (using russian_name order)
+        self.student_columns = self._load_columns_from_json('student_data.json')
+        self.lessons_columns = self._load_columns_from_json('lessons.json')
+        self.homeworks_columns = self._load_columns_from_json('homeworks.json')
         
         # Data containers
         self.students_df = None
@@ -51,13 +51,15 @@ class DataGenerator:
         with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
     
-    def _load_template_columns(self, template_name: str) -> list:
-        template_path = self.template_dir / template_name
-        if template_path.exists():
-            df = pd.read_csv(template_path, nrows=0)
-            return list(df.columns)
-        else:
-            raise FileNotFoundError(f"Template {template_path} not found")
+    def _load_columns_from_json(self, filename: str) -> list:
+        """Load column order from JSON template by extracting 'russian_name' in list order."""
+        path = self.template_dir / filename
+        if not path.exists():
+            raise FileNotFoundError(f"Template file {path} not found")
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        # Extract russian_name preserving order
+        return [item['russian_name'] for item in data]
     
     def generate(self):
         self._generate_students()
@@ -226,7 +228,7 @@ class DataGenerator:
             lessons.append(row)
         
         self.lessons_df = pd.DataFrame(lessons)
-        self.lessons_df['date'] = lesson_dates
+        self.lessons_df['date'] = lesson_dates   # temporary column for the lesson date
     
     def _generate_homeworks(self):
         homeworks = []
@@ -267,17 +269,25 @@ class DataGenerator:
                     self.students_df.loc[mask, 'Срок посещ, дн'] = duration
     
     def _save_to_xls(self):
-        lessons_export = self.lessons_df.drop(columns=['date'], errors='ignore')
+        # Prepare lessons DataFrame: rename 'date' to 'Дата' and reorder columns according to lessons_columns
+        lessons_export = self.lessons_df.copy()
+        if 'date' in lessons_export.columns:
+            lessons_export = lessons_export.rename(columns={'date': 'Дата'})
         lessons_export = lessons_export.reindex(columns=self.lessons_columns, fill_value='')
-        self.students_df = self.students_df.reindex(columns=self.student_columns, fill_value='')
-        self.homeworks_df = self.homeworks_df.reindex(columns=self.homeworks_columns, fill_value='')
         
+        # Reorder students DataFrame
+        students_export = self.students_df.reindex(columns=self.student_columns, fill_value='')
+        
+        # Reorder homeworks DataFrame
+        homeworks_export = self.homeworks_df.reindex(columns=self.homeworks_columns, fill_value='')
+        
+        # Save to Excel files
         with pd.ExcelWriter(self.output_dir / 'student_data.xls', engine='openpyxl') as writer:
-            self.students_df.to_excel(writer, index=False, sheet_name='student_data')
+            students_export.to_excel(writer, index=False, sheet_name='student_data')
         with pd.ExcelWriter(self.output_dir / 'lessons.xls', engine='openpyxl') as writer:
             lessons_export.to_excel(writer, index=False, sheet_name='lessons')
         with pd.ExcelWriter(self.output_dir / 'homeworks.xls', engine='openpyxl') as writer:
-            self.homeworks_df.to_excel(writer, index=False, sheet_name='homeworks')
+            homeworks_export.to_excel(writer, index=False, sheet_name='homeworks')
     
     def _random_date(self, start_date: date, end_date: date) -> date:
         delta = end_date - start_date
